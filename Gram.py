@@ -4,12 +4,23 @@ import sys
 
 class Gram:
     def __init__(self, mult):
-        #if not self.is_pos_def(mult):
-        #    raise Exception("Invalid inner product")
+        if not self.is_pos_def(mult):
+            raise Exception("Invalid inner product")
         self.mult = mult
 
+    @staticmethod
+    def static_norm(mult, v):
+        return np.sqrt(Gram.static_dot(mult, v, v))
+
+    @staticmethod
+    def static_dot(mult, v1, v2):
+        return np.dot(v1.transpose(), np.dot(mult, v2))
+
     def dot(self, v1, v2):
-        return np.dot(v1.transpose(), np.dot(self.mult, v2))
+        return Gram.static_dot(self.mult, v1, v2)
+
+    def norm(self, v):
+        return Gram.static_norm(self.mult, v)
 
     def make_set_orthogonal_to_vec(self, vectors):
         result = []
@@ -21,7 +32,7 @@ class Gram:
                 continue
 
             # Normalize
-            normalized = np.divide(vec, np.linalg.norm(vec))
+            normalized = np.divide(vec, self.norm(vec))
 
             result.append(normalized)
 
@@ -39,6 +50,4 @@ class Gram:
         return not np.any(np.absolute(vec) > sys.float_info.epsilon)
 
     def is_pos_def(self, A):
-        if np.allclose(A, A.H):
-            return np.all(np.linalg.eigvals(A) > 0)
-        return False
+        return np.all(np.linalg.eigvals(A) > 0)
