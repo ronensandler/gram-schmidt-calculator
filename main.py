@@ -66,10 +66,10 @@ def mission_3b():
     print(res)
 
 
-def calucalte_gs_for_gui(input):
-    matrix = list_to_matrix(input)
-    n = len(input)
-    m = len(input[0])
+def calculate_gs_for_gui(user_input):
+    matrix = list_to_matrix(user_input)
+    n = len(user_input)
+    m = len(user_input[0])
     gs = Gram(np.eye(n, m))
     return gs.make_set_orthogonal_to_vec(matrix)
 
