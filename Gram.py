@@ -33,7 +33,7 @@ class Gram:
 
     def make_set_orthogonal_to_vec(self, vectors):
         result = []
-
+        m = len(vectors)
         while len(vectors) != 0:
             if len(vectors[0]) == 0:
                 break
@@ -47,6 +47,8 @@ class Gram:
             normalized = np.divide(vec, self.norm(vec))
 
             result.append(normalized)
+            if len(result) == m:
+                break
 
             # Make all other vectors independent to the vector
             temp = []

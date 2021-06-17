@@ -19,11 +19,12 @@ def check_if_orthogonal(gs, mat):
     cols = len(mat[0])
 
     for row in range(rows):
-        for col in range(1, cols - 1):
+        for col in range(1, rows - 1):
             dot_res = gs.dot(mat[row], mat[(row + col) % rows])
             if abs(dot_res) > epsilon:
                 print("vec: ", row, " and vec: ", (row + col) % rows, "are not orth")
                 print("dot result: ", dot_res)
+                print(mat)
                 print(mat[row])
                 print(mat[(row + col) % rows])
 
@@ -73,7 +74,9 @@ def calculate_gs_for_gui(user_input):
     n = len(user_input)
     m = len(user_input[0])
     gs = Gram(np.eye(m, m))
-    return gs.make_set_orthogonal_to_vec(matrix.transpose())
+    res = gs.make_set_orthogonal_to_vec(matrix.transpose()).transpose()
+    assert(check_if_orthogonal(gs, res))
+    return res
 
 
 def main():
@@ -81,5 +84,6 @@ def main():
     mission_3a()
     mission_3b()
     App.start(calculate_gs_for_gui)
+
 
 main()
