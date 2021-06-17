@@ -35,6 +35,9 @@ class Gram:
         result = []
 
         while len(vectors) != 0:
+            if len(vectors[0]) == 0:
+                break
+
             vec = vectors[:, 0]
             vectors = np.delete(vectors, 0, axis=1)
             if is_zero(vec):

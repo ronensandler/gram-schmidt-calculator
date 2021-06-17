@@ -72,8 +72,8 @@ def calculate_gs_for_gui(user_input):
     matrix = list_to_matrix(user_input)
     n = len(user_input)
     m = len(user_input[0])
-    gs = Gram(np.eye(n, m))
-    return gs.make_set_orthogonal_to_vec(matrix)
+    gs = Gram(np.eye(m, m))
+    return gs.make_set_orthogonal_to_vec(matrix.transpose())
 
 
 def main():
