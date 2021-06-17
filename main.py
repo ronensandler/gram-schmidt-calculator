@@ -2,6 +2,8 @@ import numpy as np
 from Gram import Gram
 import sys
 
+from app import App
+
 epsilon = 1e-8
 
 
@@ -78,6 +80,6 @@ def main():
     test_gram_calculator()
     mission_3a()
     mission_3b()
-
+    App.start(calculate_gs_for_gui)
 
 main()
